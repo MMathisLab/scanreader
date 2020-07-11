@@ -5,7 +5,7 @@ long_description = "Python TIFF Stack Reader for ScanImage 5 scans (including mu
 
 setup(
     name='scanreader',
-    version='0.4.3',
+    version='0.4.11',
     description="Reader for ScanImage 5 scans (including slow stacks and multiROI).",
     long_description=long_description,
     author='Erick Cobos',
@@ -14,7 +14,7 @@ setup(
     url='https://github.com/atlab/scanreader',
     keywords='ScanImage scanreader multiROI 2016b tiff',
     packages=['scanreader'],
-    install_requires=['numpy>=1.12.0', 'tifffile>=0.13.5'],
+    install_requires=['numpy>=1.12.0', 'tifffile>=2019.2.22'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Science/Research',

@@ -9,10 +9,17 @@ BaseScan
         Scan5Point1
         Scan5Point2
             Scan5Point3
+                Scan5Point4
+                Scan5Point5
+                Scan5Point6
+                Scan5Point7
                 Scan2016b
                 Scan2017a
                 Scan2017b
                 Scan2018a
+                Scan2018b
+                Scan2019a
+                Scan2019b
     ScanMultiRoi
 """
 from tifffile import TiffFile
@@ -64,7 +71,7 @@ class BaseScan():
     @property
     def tiff_files(self):
         if self._tiff_files is None:
-            self._tiff_files = [TiffFile(filename, movie=True) for filename in self.filenames]
+            self._tiff_files = [TiffFile(filename) for filename in self.filenames]
         return self._tiff_files
 
     @tiff_files.deleter
@@ -608,6 +615,22 @@ class Scan5Point3(NewerScan, Scan5Point2): # NewerScan first to shadow Scan5Poin
     """ScanImage 5.3"""
     pass
 
+class Scan5Point4(Scan5Point3):
+    """ScanImage 5.4"""
+    pass
+
+class Scan5Point5(Scan5Point3):
+    """ScanImage 5.5"""
+    pass
+
+class Scan5Point6(Scan5Point3):
+    """ScanImage 5.6"""
+    pass
+
+class Scan5Point7(Scan5Point3):
+    """ScanImage 5.7"""
+    pass
+
 
 class Scan2016b(Scan5Point3):
     """ ScanImage 2016b"""
@@ -623,8 +646,24 @@ class Scan2017b(Scan5Point3):
     """ ScanImage 2017b"""
     pass
 
-class Scan2017b(Scan5Point3):
+
+class Scan2018a(Scan5Point3):
     """ ScanImage 2018a"""
+    pass
+
+
+class Scan2018b(Scan5Point3):
+    """ ScanImage 2018b"""
+    pass
+
+
+class Scan2019a(Scan5Point3):
+    """ ScanImage 2019a"""
+    pass
+
+
+class Scan2019b(Scan5Point3):
+    """ ScanImage 2019b"""
     pass
 
 
@@ -720,7 +759,8 @@ class ScanMultiROI(NewerScan, BaseScan):
         """Create scan rois from the configuration file. """
         roi_infos = self.tiff_files[0].scanimage_metadata['RoiGroups']['imagingRoiGroup']['rois']
         roi_infos = roi_infos if isinstance(roi_infos, list) else [roi_infos]
-        roi_infos = list(filter(lambda r: isinstance(r['zs'], (int, list)), roi_infos)) # discard empty/malformed ROIs
+        roi_infos = list(filter(lambda r: isinstance(r['zs'], (int, float, list)),
+                                roi_infos)) # discard empty/malformed ROIs
 
         rois = [ROI(roi_info) for roi_info in roi_infos]
         return rois
